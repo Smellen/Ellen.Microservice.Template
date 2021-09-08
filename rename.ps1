@@ -1,14 +1,28 @@
+# read the updated project name
+$newProjectNameFromArgs = $args[0]
+
+# read the updated API name
+$newApiName = $args[1]
+
+if ($args.Length -eq 0)
+{
+	Write-Host "Required arguments missing. 
+	First arg is Project name. 
+	Second arg is the new API name."
+}
+
 # set output encoding
 $OutputEncoding = [Text.UTF8Encoding]::UTF8
 
 # project name placeholder
 $oldProjectName="Ellen.Microservice.Template"
-# new project name. CHANGE ME
-$newProjectName="Ellen.Updated.Microservice"
+# new project name.
+$newProjectName = $newProjectNameFromArgs
 
+# Old names of existing solution.
 $placeHolderTextContent= ('Ellen.Microservice.Template.xml', 'Ellen Microservice Template API')
-# New project settings. CHANGE ME
-$newTextContent= ('Ellen.Updated.Microservice.xml', 'Ellen Updated Microservice API')
+# New project settings.
+$newTextContent = ("$newProjectNameFromArgs.xml", $newApiName)
 
 # file type
 $fileType="FileInfo"
@@ -17,19 +31,74 @@ $fileType="FileInfo"
 $dirType="DirectoryInfo"
 
 # copy 
-Write-Host 'Start copy folders...'
+Write-Host "Starting folder copy for $newProjectName..."
 $newRoot=$newProjectName
 mkdir $newRoot
-Copy-Item -Recurse .\src\ .\$newRoot\
-Copy-Item -Recurse .\tests\ .\$newRoot\
-Copy-Item -Recurse .\build\ .\$newRoot\
-Copy-Item .gitignore .\$newRoot\
-Copy-Item .editorconfig .\$newRoot\
-Copy-Item .gitattributes .\$newRoot\
-Copy-Item CHANGELOG.md .\$newRoot\
+
+try
+{
+	Copy-Item -Recurse .\src\ .\$newRoot\ -ErrorAction Stop
+}catch{
+	Write-Host("No src folder found.") -ForegroundColor Red
+}
+
+try{
+	Copy-Item -Recurse .\tests\ .\$newRoot\ -ErrorAction Stop
+}catch
+{
+	Write-Host("No tests folder found.") -ForegroundColor Red
+}
+
+try{
+	Copy-Item -Recurse .\build\ .\$newRoot\ -ErrorAction Stop
+}catch
+{
+	Write-Host("No build folder found.") -ForegroundColor Red
+}
+
+try{
+	Copy-Item .gitignore .\$newRoot\ -ErrorAction Stop
+}catch
+{
+	Write-Host("No .gitignore found.") -ForegroundColor Red
+}
+
+try{
+	Copy-Item .editorconfig .\$newRoot\ -ErrorAction Stop
+}catch
+{
+	Write-Host("No .editorconfig file found.") -ForegroundColor Red
+}
+
+try{
+	Copy-Item .gitattributes .\$newRoot\ -ErrorAction Stop
+}catch
+{
+	Write-Host("No .gitattributes file found.") -ForegroundColor Red
+}
+
+try{
+	Copy-Item CHANGELOG.md .\$newRoot\ -ErrorAction Stop
+}catch
+{
+	Write-Host("No CHANGELOG.md file found.") -ForegroundColor Red
+}
+
+try{
+	Copy-Item nuget.config .\$newRoot\ -ErrorAction Stop
+}catch
+{
+	Write-Host("No nuget.config file found.") -ForegroundColor Red
+}
+
+try{
+	Copy-Item README.md .\$newRoot\ -ErrorAction Stop
+}catch
+{
+	Write-Host("No README.md file found.") -ForegroundColor Red
+}
+
 Copy-Item "$($oldProjectName).sln" .\$newRoot\
-Copy-Item nuget.config .\$newRoot\
-Copy-Item README.md .\$newRoot\
 
 # folders to deal with
 $rootFolder = (Get-Item -Path "./$newRoot/" -Verbose).FullName
@@ -43,11 +112,13 @@ function Rename {
         [string[]]$NewTextContent
 	)
 	# file extensions to deal with
+	# ADD missing file extensions as needed.
 	$include=@("*.cs","*.cshtml","*.asax","*.ps1","*.ts","*.csproj","*.sln","*.xaml","*.json","*.js","*.xml","*.config","Dockerfile", "azure-pipelines.yml")
 
 	$elapsed = [System.Diagnostics.Stopwatch]::StartNew()
 
-	Write-Host "[$TargetFolder]Start rename folder..."
+	Write-Host "Start folder renaming..."
+	Write-Host "New solution location [$TargetFolder]" -ForegroundColor Yellow
 	# rename folder
 	Get-ChildItem $TargetFolder -Recurse | Where-Object { $_.GetType().Name -eq $dirType -and $_.Name.Contains($PlaceHolderProjectName) } | ForEach-Object{
 		Write-Host 'directory ' $_.FullName
@@ -56,7 +127,6 @@ function Rename {
 	}
 	Write-Host "[$TargetFolder]End rename folder."
 	Write-Host '-------------------------------------------------------------'
-
 
 	# replace file content and rename file name
 	Write-Host "[$TargetFolder]Start replace file content and rename file name..."
@@ -71,7 +141,7 @@ function Rename {
 			Write-Host 'file(change name) ' $_.FullName
 		}
 	}
-	Write-Host "[$TargetFolder]End replace file content and rename file name."
+	Write-Host "End replace file content and rename file name."
 	Write-Host '-------------------------------------------------------------'
 
 	$elapsed.stop()
