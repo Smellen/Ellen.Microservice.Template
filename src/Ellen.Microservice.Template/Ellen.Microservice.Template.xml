@@ -4,5 +4,24 @@
         <name>Ellen.Microservice.Template</name>
     </assembly>
     <members>
+        <member name="T:Ellen.Microservice.Template.Controllers.ExampleController">
+            <summary>
+            The example controller.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="M:Ellen.Microservice.Template.Controllers.ExampleController.#ctor(Microsoft.Extensions.Logging.ILogger{Ellen.Microservice.Template.Controllers.ExampleController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ellen.Microservice.Template.Controllers.ExampleController"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <exception cref="T:System.ArgumentNullException">logger</exception>
+        </member>
+        <member name="M:Ellen.Microservice.Template.Controllers.ExampleController.Get">
+            <summary>
+            Gets an example string array.
+            </summary>
+            <returns>An array of strings.</returns>
+        </member>
     </members>
 </doc>
