@@ -87,4 +87,3 @@ function ReplaceFileContent($FileName, $PlaceHolder, $Replacement) {
 }
 
 Rename -TargetFolder $rootFolder -PlaceHolderProjectName $oldProjectName -NewProjectName $newProjectName -PlaceHolderTextContent $placeHolderTextContent -NewTextContent $newTextContent
-
