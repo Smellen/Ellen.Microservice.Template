@@ -1,7 +1,7 @@
 # Ellen.Microservice.Template
 This is a template solution for any of my microservice work to give me a quick start.
 
-Basic .NET 5.0 API with an example controller with one GET request endpoint.
+Basic .NET 6.0 API with an example controller with one GET request endpoint.
 An example xUnit test project with one example test using Moq and FluentValidation.
 
 Swagger is also enabled. No authentication enabled.

@@ -23,5 +23,52 @@
             </summary>
             <returns>An array of strings.</returns>
         </member>
+        <member name="T:Ellen.Microservice.Template.Program">
+            <summary>
+            The program class.
+            </summary>
+        </member>
+        <member name="M:Ellen.Microservice.Template.Program.Main(System.String[])">
+            <summary>
+            The main entry.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:Ellen.Microservice.Template.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            The host builder creation.
+            </summary>
+            <param name="args">The arguments.</param>
+            <returns>A host builder.</returns>
+        </member>
+        <member name="T:Ellen.Microservice.Template.Startup">
+            <summary>
+            The startup class.
+            </summary>
+        </member>
+        <member name="M:Ellen.Microservice.Template.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            The startup constructor.
+            </summary>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="P:Ellen.Microservice.Template.Startup.Configuration">
+            <summary>
+            The configuration.
+            </summary>
+        </member>
+        <member name="M:Ellen.Microservice.Template.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure the services.
+            </summary>
+            <param name="services">The service collection.</param>
+        </member>
+        <member name="M:Ellen.Microservice.Template.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configuring the application.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="env">The web host environment.</param>
+        </member>
     </members>
 </doc>
